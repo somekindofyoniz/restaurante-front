@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { ToastContainer } from 'react-toastify'
+import { Button } from 'semantic-ui-react'
+import { Navigation } from './routes'
+import { AuthProvider } from './context'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AuthProvider>
+      <Navigation />
+      <ToastContainer 
+        position='bottom-center'
+        autoClose={3000}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        pauseOnHover={false}
+        draggable
+      />
+    </AuthProvider> 
+  )
 }
-
-export default App;
