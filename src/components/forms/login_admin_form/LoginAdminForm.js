@@ -9,7 +9,6 @@ import { useAuth } from '../../../hooks/'
 
 export function LoginAdminForm() {
     const { login } = useAuth();
-    console.log(useAuth())
     
     //Formik definition
     const formik = useFormik({
@@ -20,8 +19,11 @@ export function LoginAdminForm() {
         validationSchema:Yup.object(validationSchema()),
         onSubmit: async (values) => {
             try {
+                //Get response tokens
                 const response = await loginApi(values);
-                const access = response;
+                //Get access token from response
+                const access = response.access;
+                //console.log(response.access)
                 //console.log(response)
                 login(access)
             } catch (error) {

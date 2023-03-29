@@ -48,10 +48,10 @@ export async function getMeApi(token) {
             throw new Error("Error al validar los datos")
         }
         else{
-            console.log("performed")
+            console.log("performed getMeApi")
         }
 
-        const result = await response.json();
+        //const result = await response.json();
         return userResult;
 
     } catch (error) {
