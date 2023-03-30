@@ -9,18 +9,21 @@ export function AdminTopMenu() {
     
     //Conditional user names or username rendering
     const displayUser = () => {
-        if (auth.me?.first_name && auth.me?.last_name){
-            return auth.me.first_name + ' ' + auth.me.last_name
-        }
+      if (auth.me?.first_name && auth.me?.last_name){
+        return auth.me.first_name + ' ' + auth.me.last_name
+      }
+        //if First name and Last name doesn't exist and the username exist the usernamewill be show
         else if (auth.me.username){
             return auth.me.username
         }
+        //if no one is found an "-/-" will be shown
         else {
             return '-/-'
         }
     }
 
   return (
+    //Top menu
     <div>
       <Menu fixed='top' className='top-menu-admin'>
         <Menu.Item><p>Restaurante app</p></Menu.Item>
