@@ -1,6 +1,6 @@
 import routerAdmin from './routes.admin';
 import routerClient from './routes.client';
-import { Error_404 } from '../pages';
+import { Error_404 } from '../pages/Error_404';
 import { BasicLayout } from '../layouts/BasicLayout'
 
 //Spead operator to concatenate the array contents

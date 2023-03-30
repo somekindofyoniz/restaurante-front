@@ -3,6 +3,7 @@ import './AdminLayout.scss';
 import {LoginAdmin} from '../../pages/Admin';
 import {useAuth} from '../../hooks';
 import { AdminTopMenu } from '../../components/top-menu';
+import { AdminSideMenu } from '../../components/side-menu';
 
 //props will receibe site content
 export function AdminLayout(props) {
@@ -19,8 +20,7 @@ export function AdminLayout(props) {
             </div>
 
             <div className='admin-layout__main-content'>
-                {/* Get all the page content and wrap in children */}
-                {children}
+                <AdminSideMenu>{children}</AdminSideMenu>
             </div>
 
         </div>

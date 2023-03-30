@@ -1,0 +1,14 @@
+.side-menu-admin{
+    .ui.vertical.menu{
+        width: 250px !important;
+        overflow: hidden;
+        padding-top: 4em;
+        z-index: 99 !important;
+    }
+}
+.content{
+    position: absolute;
+    right: 0;
+    padding: 20px;
+    width: calc(100% - 250px);
+}
