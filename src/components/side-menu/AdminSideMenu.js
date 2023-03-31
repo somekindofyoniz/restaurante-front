@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon, Menu } from 'semantic-ui-react'
 import './AdminSideMenu.scss'
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks';
 
 export function AdminSideMenu(props) {
     //Navigation, get current site path name
@@ -21,6 +22,7 @@ export function AdminSideMenu(props) {
 //Side menu definition
 function MenuLeft(props){
     const {pathname} = props;
+    const {auth} = useAuth();
     return(
         //Side menu
         <Menu fixed='left' vertical className='side'>
@@ -50,11 +52,13 @@ function MenuLeft(props){
                 <Icon name='cart' />Products
             </Menu.Item>
 
-
-            {/* Users */}
-            <Menu.Item as={Link} to={'/admin/users'} active={pathname === 'admin/users'}>
-                <Icon name='users' />Users
-            </Menu.Item>
+            {/* Users (staff only) */}
+            {auth.me?.is_staff && (
+                //Users
+                <Menu.Item as={Link} to={'/admin/users'} active={pathname === 'admin/users'}>
+                    <Icon name='users' />Users
+                </Menu.Item>
+            )}
         </Menu>
     )
 }
