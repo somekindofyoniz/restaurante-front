@@ -50,10 +50,10 @@ function Actions(props) {
     const {user} = props;
     return (
         <Table.Cell textAlign='right'>
-            <Button Icon onClick={() => console.log('editar usuario: ' + user.email)}>
+            <Button icon positive onClick={() => console.log('editar usuario: ' + user.email)}>
                 <Icon name='pencil' />
             </Button>
-            <Button Icon onClick={() => console.log('eliminar usuario: ' + user.email)}>
+            <Button icon negative onClick={() => console.log('eliminar usuario: ' + user.email)}>
                 <Icon name='trash' />
             </Button>
         </Table.Cell>
