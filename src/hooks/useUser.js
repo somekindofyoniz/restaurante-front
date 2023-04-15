@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { addUserApi, getMeApi, getUsersApi } from "../api/user";
+import { addUserApi, editUserApi, getMeApi, getUsersApi } from "../api/user";
 import { useAuth } from "./useAuth";
 
 export function useUser() {
@@ -47,10 +47,21 @@ export function useUser() {
         }
     }
 
+    //Modify user data
+    const editUser = async (id, data) => {
+        try {
+            setLoading(true)
+            await editUserApi(id, data, auth.token)
+        } catch (error) {
+            setLoading(false)
+            setError(error)
+        }
+    }
     return {
         getMe,
         getUsers,
         addUser,
+        editUser,
         error,
         users,
         loading,

@@ -103,3 +103,32 @@ export async function addUserApi(values, token) {
         console.error(error)
     }
 }
+
+export async function editUserApi(id, data, token) {
+    try {
+        const url = BASE_API + 'api/users/'+id+'/';
+        const params = {
+            method: 'PATCH',
+            headers: {
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+
+        const response = await fetch(url, params);
+
+        if (response.status !== 200) {
+            throw new Error("Error al validar los datos")
+        }
+        else {
+            console.log("performed")
+        }
+
+        const result = await response.json();
+        return result;
+
+    } catch (error) {
+        console.error(error)
+    }
+}
