@@ -13,7 +13,7 @@ export function ModalBasic(props) {
             //size={size}
         >
             <Box className={'modal-custom'}>
-                {title && <h2>{title}</h2>}
+                {title && <h3>{title}</h3>}
                 {children}
             </Box>
             {/*<Modal.Content className='modal-basic__content'><h2>smkdmasadmasdka</h2><h2>smkdmasadmasdka</h2><h2>smkdmasadmasdka</h2><h2>smkdmasadmasdka</h2><h2>smkdmasadmasdka</h2></Modal.Content>*/}

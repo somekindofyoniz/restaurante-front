@@ -4,7 +4,7 @@ import { Icon, Table, Button } from 'semantic-ui-react'
 import './UsersTable.scss'
 
 export function UsersTable(props) {
-    const { users, editUser } = props;
+    const { users, editUser, onDelete } = props;
     return (
         <Table className='table-users-admin'>
             <Table.Header>
@@ -37,7 +37,7 @@ export function UsersTable(props) {
                             }
                         </Table.Cell>
 
-                        <Actions user={user} editUser={editUser}/>
+                        <Actions user={user} editUser={editUser} onDelete={onDelete} />
                     </Table.Row>
                 ))}
             </Table.Body>
@@ -47,13 +47,13 @@ export function UsersTable(props) {
 }
 
 function Actions(props) {
-    const {user, editUser} = props;
+    const {user, editUser, onDelete} = props;
     return (
         <Table.Cell textAlign='right'>
             <Button icon positive onClick={() => editUser(user)}>
                 <Icon name='pencil' />
             </Button>
-            <Button icon negative onClick={() => console.log('eliminar usuario: ' + user.email)}>
+            <Button icon negative onClick={() => onDelete(user)}>
                 <Icon name='trash' />
             </Button>
         </Table.Cell>

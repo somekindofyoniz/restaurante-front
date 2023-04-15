@@ -7,6 +7,7 @@ import { AdminHeaderPage } from '../../../components/headers/AdminHeaderPage'
 import { AddEditUserForm, UsersTable } from '../../../components'
 import { ModalBasic } from '../../../components/common/ModalBasic'
 import './UsersAdmin.scss'
+import { Box, TextField, Typography } from '@mui/material'
 
 export function UsersAdmin() {
   //states
@@ -15,7 +16,7 @@ export function UsersAdmin() {
   const [contentModal, setContentModal] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const { loading, users, getUsers } = useUser();
-  
+
   //Get user list
   useEffect(() => {
     getUsers();
@@ -38,6 +39,19 @@ export function UsersAdmin() {
     setContentModal(<AddEditUserForm onClose={OpenCloseModal} onRefresh={onRefresh} user={data} />);
     OpenCloseModal()
   }
+
+  //User delete confirmation
+  const onDelete = (data) => {
+    setTitleModal('Warning');
+    setContentModal(
+      <Box>
+        <Typography>Are you sure you want to delete the user {data.username}?</Typography>
+        <Typography>This action cannot be undone.</Typography>
+      </Box>
+    )
+    OpenCloseModal()
+  }
+
   return (
     <>
       <AdminHeaderPage
@@ -52,8 +66,8 @@ export function UsersAdmin() {
         </Loader>
       ) : (
         <>
-          <UsersTable users={users} editUser={editUser} />
-        
+          <UsersTable users={users} editUser={editUser} onDelete={onDelete}/>
+
           <ModalBasic
             title={titleModal}
             show={showModal}
