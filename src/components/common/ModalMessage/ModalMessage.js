@@ -1,9 +1,9 @@
 import React from 'react';
-import './ModalBasic.scss';
+import './ModalMessage.scss';
 //import { Modal } from 'semantic-ui-react'
 import { Box, Modal } from '@mui/material';
 
-export function ModalBasic(props) {
+export function ModalMessage(props) {
     const {show, size, title, children, onClose} = props;
     //console.log(props)
     return (
@@ -12,7 +12,7 @@ export function ModalBasic(props) {
             onClose={onClose}
             size={size}
         >
-            <Box className={'modal-custom'}>
+            <Box className={'modal-message-custom'}>
                 {title && <h3>{title}</h3>}
                 {children}
             </Box>
@@ -21,7 +21,7 @@ export function ModalBasic(props) {
     );
 };
 
-ModalBasic.defaultProps = {
+ModalMessage.defaultProps = {
     size: "tiny",
     centered: true
 };

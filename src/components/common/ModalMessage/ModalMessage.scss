@@ -1,0 +1,35 @@
+.modal-message {
+    display: block!important;
+    //flex: 1;
+    //height: 100% !important;
+    max-height: fit-content !important;
+    min-height: fit-content!important;
+    margin: 0 auto!important;
+    //margin-top: auto!important;
+    //margin-left: auto!important;
+    //margin-bottom: auto!important;
+    //margin-right: auto!important;
+    //overflow: hidden;
+    border-radius: 20px;
+    &__content {
+        //background-color: red!important;
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+}
+
+//.ui.modal {
+//    display: block !important;
+//    //height: auto !important;/
+//}
+
+.modal-message-custom{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 15px;
+    margin: 0 auto;
+    width: 25%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}

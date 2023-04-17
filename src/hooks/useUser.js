@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { addUserApi, editUserApi, getMeApi, getUsersApi } from "../api/user";
+import { addUserApi, editUserApi, getMeApi, getUsersApi, deleteUserApi } from "../api/user";
 import { useAuth } from "./useAuth";
 
 export function useUser() {
@@ -57,11 +57,25 @@ export function useUser() {
             setError(error)
         }
     }
+
+    //Delete user data
+    const deleteUser = async (id) => {
+        const tokendelete = auth.token
+        try {
+            setLoading(true)
+            await deleteUserApi(id, tokendelete)
+            setLoading(false);
+        } catch (error) {
+            setLoading(false)
+            setError(error)
+        }
+    }
     return {
         getMe,
         getUsers,
         addUser,
         editUser,
+        deleteUser,
         error,
         users,
         loading,

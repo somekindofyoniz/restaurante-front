@@ -104,6 +104,7 @@ export async function addUserApi(values, token) {
     }
 }
 
+//Edit users
 export async function editUserApi(id, data, token) {
     try {
         const url = BASE_API + 'api/users/'+id+'/';
@@ -126,6 +127,34 @@ export async function editUserApi(id, data, token) {
         }
 
         const result = await response.json();
+        return result;
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+//Delete users
+export async function deleteUserApi(id, token) {
+    try {
+        const url = BASE_API + 'api/users/'+id+'/';
+        const params = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        }
+
+        const response = await fetch(url, params);
+
+        if (response.status !== 204) {
+            throw new Error("Error al validar los datos")
+        }
+        else {
+            console.log("performed")
+        }
+
+        const result = await response.status;
         return result;
 
     } catch (error) {

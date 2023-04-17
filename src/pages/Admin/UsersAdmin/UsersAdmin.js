@@ -1,28 +1,34 @@
 import React from 'react'
-import { Button, Loader } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 import { useAuth } from '../../../hooks'
 import { useEffect, useState } from 'react'
 import { useUser } from '../../../hooks'
 import { AdminHeaderPage } from '../../../components/headers/AdminHeaderPage'
-import { AddEditUserForm, UsersTable } from '../../../components'
+import { AddEditUserForm, ModalMessage, UsersTable } from '../../../components'
 import { ModalBasic } from '../../../components/common/ModalBasic'
+
 import './UsersAdmin.scss'
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, Stack, TextField, Typography, Button, IconButton } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export function UsersAdmin() {
   //states
   const [showModal, setShowModal] = useState(false);
+  const [showModalMessage, setShowModalMessage] = useState(false);
   const [titleModal, setTitleModal] = useState(null);
+  const [size, setSize] = useState('tiny')
   const [contentModal, setContentModal] = useState(null);
   const [refresh, setRefresh] = useState(false);
-  const { loading, users, getUsers } = useUser();
+  const { loading, users, getUsers, deleteUser } = useUser();
 
   //Get user list
   useEffect(() => {
+    console.log('getting users')
     getUsers();
   }, [refresh]);
 
   const OpenCloseModal = () => setShowModal((prev) => !prev);
+  const OpenCloseModalMessage = () => setShowModalMessage((prev) => !prev);
   const onRefresh = () => setRefresh((prev) => !prev);
 
   //Add new user function, set's modal content to the Add/Edit user form, set's the title and set's the refresh, also open/close the modal
@@ -40,16 +46,44 @@ export function UsersAdmin() {
     OpenCloseModal()
   }
 
-  //User delete confirmation
+  const deletingUser = async (data) =>{
+    console.log('deletinguser executing')
+    try {
+      await deleteUser(data.id)
+      onRefresh()
+    } catch (error) {
+      console.error(error)
+    }
+    setShowModalMessage(false)
+    //setRefresh(false)
+  }
+
+  //User delete confirmation modal
   const onDelete = (data) => {
+    console.log('ondelete executing')
     setTitleModal('Warning');
+    setSize('mini')
     setContentModal(
-      <Box>
-        <Typography>Are you sure you want to delete the user {data.username}?</Typography>
-        <Typography>This action cannot be undone.</Typography>
-      </Box>
+      <>
+        <Box>
+          <Typography>Are you sure you want to delete the user {data.username}?</Typography>
+          <Typography>This action cannot be undone.</Typography>
+        </Box>
+        <Box marginTop={2}>
+          <Stack direction={'row-reverse'} spacing={1}>
+            <Button aria-label={'delete'} onClick={() => deletingUser(data)}
+              variant={'contained'}
+              color={'error'}
+            >
+              <DeleteIcon /> Delete
+            </Button>
+            <Button variant={'outlined'} onClick={OpenCloseModalMessage}>Cancel</Button>
+          </Stack>
+        </Box>
+      </>
     )
-    OpenCloseModal()
+    setShowModalMessage(true)
+    setRefresh(true)
   }
 
   return (
@@ -66,12 +100,21 @@ export function UsersAdmin() {
         </Loader>
       ) : (
         <>
-          <UsersTable users={users} editUser={editUser} onDelete={onDelete}/>
+          <UsersTable users={users} editUser={editUser} deleteUser={deleteUser} onDelete={onDelete} />
 
           <ModalBasic
             title={titleModal}
             show={showModal}
+            size={size}
             onClose={OpenCloseModal}
+            children={contentModal}
+          />
+
+          <ModalMessage
+            title={titleModal}
+            show={showModalMessage}
+            size={size}
+            onClose={OpenCloseModalMessage}
             children={contentModal}
           />
 
