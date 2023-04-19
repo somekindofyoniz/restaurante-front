@@ -70,6 +70,7 @@ export function useUser() {
             setError(error)
         }
     }
+    
     return {
         getMe,
         getUsers,
